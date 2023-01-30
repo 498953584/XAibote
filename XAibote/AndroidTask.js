@@ -9,22 +9,34 @@ AndroidBot.registerMain(androidMain, 16678);
 async function androidMain(androidBot) {
     await androidBot.setImplicitTimeout(3000);//设置隐式等待时间
     let androidId = await androidBot.getAndroidId();
-    console.log(androidId);
+    console.log("设备", androidId, "已连接");
     // let words = await androidBot.findWords("今日");
-    await androidBot.startApp("com.tencent.mobileqq");
-    await androidBot.clickElement("com.tencent.mobileqq/com.tencent.mobileqq:id=conversation_head");
-    if (await androidBot.existsElement("com.tencent.mobileqq/android.widget.TextView@containsText=已打卡")) {
-        console.log("");
-        await androidBot.manyBack(2);
-        return;
-    }
-    await androidBot.clickElement("com.tencent.mobileqq/android.widget.TextView@containsText=打卡");
-    await androidBot.clickElement("com.tencent.mobileqq/android.widget.Button@containsText=立即打卡");
-    await androidBot.manyBack(5);
+
     // let txt = await androidBot.getElementText("com.samsung.android.app.sreminder/com.samsung.android.app.sreminder:id=tv_text");
     // console.log(txt);
     // await androidBot.setElementText("com.samsung.android.app.sreminder[1]/com.samsung.android.app.sreminder:id=search_view", "ssss\n");
     // await androidBot.sendVk(66);
     // console.timeEnd('今日');
     // console.log(words);
+    QQDaka(androidBot);
+}
+
+/**
+ * QQ打卡
+ * @param {*} androidBot 
+ * @returns 
+ */
+async function QQDaka(androidBot) {
+    await androidBot.startApp("com.tencent.mobileqq");
+    await androidBot.clickElement("com.tencent.mobileqq/com.tencent.mobileqq:id=conversation_head");
+    if (await androidBot.existsElement("com.tencent.mobileqq/android.widget.TextView@containsText=已打卡")) {
+        let txt = await androidBot.getElementText("com.tencent.mobileqq/android.widget.TextView@containsText=已打卡")
+        console.log(txt);
+        await androidBot.manyBack(2);
+        return;
+    }
+    await androidBot.clickElement("com.tencent.mobileqq/android.widget.TextView@containsText=打卡");
+    await androidBot.clickElement("com.tencent.mobileqq/android.widget.Button@containsText=立即打卡");
+    await androidBot.sleep(2000);
+    await androidBot.manyBack(5);
 }
