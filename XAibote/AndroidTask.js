@@ -10,11 +10,6 @@ async function androidMain(androidBot) {
     await androidBot.setImplicitTimeout(3000);//设置隐式等待时间
     let androidId = await androidBot.getAndroidId();
     console.log(androidId);
-    // setInterval(async function () {
-    //     let speed = await androidBot.getElementText("com.android.systemui/com.android.systemui:id=network_speed_contentview");
-    //     console.log(speed);
-    // }, 1000);
-    // console.time('今日');
     // let words = await androidBot.findWords("今日");
     await androidBot.startApp("com.tencent.mobileqq");
     await androidBot.clickElement("com.tencent.mobileqq/com.tencent.mobileqq:id=conversation_head");
