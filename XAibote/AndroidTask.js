@@ -18,7 +18,23 @@ async function androidMain(androidBot) {
     // await androidBot.sendVk(66);
     // console.timeEnd('今日');
     // console.log(words);
-    QQDaka(androidBot);
+
+    thred(async function () {
+        console.log(12344);
+        await androidBot.sleep(2000);
+    }, QQDaka, androidBot);
+}
+
+async function thred(fuc, mianFuc, androidBot) {
+    var isExist = false;
+    var thred1 = async function () {
+        while (!isExist) {
+            await fuc.call();
+        }
+    }
+    thred1();
+    await mianFuc(androidBot);
+    isExist = true;
 }
 
 /**
